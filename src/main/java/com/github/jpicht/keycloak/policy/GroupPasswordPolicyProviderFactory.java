@@ -1,6 +1,3 @@
-package com.github.jpicht.keycloak.policy;
-
-
 /*
  * Copyright 2019 Julian Picht
  *
@@ -16,6 +13,8 @@ package com.github.jpicht.keycloak.policy;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package com.github.jpicht.keycloak.policy;
 
 import com.google.auto.service.AutoService;
 import org.keycloak.Config;
@@ -36,7 +35,7 @@ public class GroupPasswordPolicyProviderFactory implements PasswordPolicyProvide
 
     @Override
     public PasswordPolicyProvider create(KeycloakSession session) {
-        return new GroupPasswordPolicyProvider(session.getContext());
+        return new GroupPasswordPolicyProvider(session);
     }
 
     @Override
