@@ -17,33 +17,28 @@
 package com.github.jpicht.keycloak.policy;
 
 import java.util.LinkedList;
+import java.util.List;
+
 import org.jboss.logging.Logger;
 import org.keycloak.models.GroupModel;
-import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.RealmModel;
 import org.keycloak.models.UserModel;
-import org.keycloak.policy.PasswordPolicyConfigException;
 
-public class GroupPasswordPolicyProvider extends PolicyProviderMultiplexer {
+public class GroupPasswordPolicyFinder {
 
-    private static final Logger logger = Logger.getLogger(GroupPasswordPolicyProvider.class);
+    private static final Logger logger = Logger.getLogger(GroupPasswordPolicyFinder.class);
 
-    public GroupPasswordPolicyProvider(KeycloakSession session) {
-        super(session);
-    }
-
-    @Override
-    protected LinkedList<String> findPolicies(RealmModel realm, UserModel user) {
+    protected List<String> findPolicies(RealmModel realm, UserModel user) {
         // First get the name of the attribute
         String groupAttribute = realm.getPasswordPolicy().getPolicyConfig(GroupPasswordPolicyProviderFactory.ID);
-        logger.debugf("groupAttribute %s", groupAttribute);
-        logger.debugf("user %s", user.getUsername());
+        logger.debugf("groupAttribute: %s", groupAttribute);
+        logger.debugf("user: %s", user.getUsername());
 
         LinkedList<String> policyDefinitions = new LinkedList<>();
 
         // Iterate groups and collect policy strings
         for (GroupModel group : user.getGroups()) {
-            logger.debugf("group %s", group.getName());
+            logger.debugf("group: %s", group.getName());
             for (String policyString : group.getAttribute(groupAttribute)) {
                 logger.infof("adding group password policy: %s", policyString);
                 policyDefinitions.add(policyString);
@@ -52,16 +47,5 @@ public class GroupPasswordPolicyProvider extends PolicyProviderMultiplexer {
 
         return policyDefinitions;
     }
-
-    @Override
-    public Object parseConfig(String value) {
-        if (value == null || value.isEmpty()) {
-            throw new PasswordPolicyConfigException("Attribute name cannot be blank");
-        }
-        return value;
-    }
-
-    @Override
-    public void close() {
-    }
+    
 }

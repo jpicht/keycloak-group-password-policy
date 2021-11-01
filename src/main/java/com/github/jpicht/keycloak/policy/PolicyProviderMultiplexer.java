@@ -39,7 +39,7 @@ abstract public class PolicyProviderMultiplexer implements PasswordPolicyProvide
         this.session = session;
     }
 
-    abstract protected LinkedList<String> findPolicies(RealmModel realm, UserModel user);
+    protected abstract List<String> findPolicies(RealmModel realm, UserModel user);
 
     @Override
     public PolicyError validate(String username, String password) {
