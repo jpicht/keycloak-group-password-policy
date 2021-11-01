@@ -47,7 +47,7 @@ abstract class RequiredActionMultiplexer implements RequiredActionProvider {
      */
 	@Override
 	public void evaluateTriggers(RequiredActionContext context) {
-		this.logger.tracef("evaluateTriggers({})", context.getUser() != null ? context.getUser().getUsername() : null);
+		this.logger.tracef("evaluateTriggers(%s)", context.getUser() != null ? context.getUser().getUsername() : null);
 		
 		int daysToExpirePassword = this.findDaysToExpire(context.getRealm(), context.getUser());
 		if (daysToExpirePassword > -1) {
@@ -73,12 +73,12 @@ abstract class RequiredActionMultiplexer implements RequiredActionProvider {
 	
 	@Override
 	public void requiredActionChallenge(RequiredActionContext context) {
-		this.logger.tracef("requiredActionChallenge({})", context.getUser() != null ? context.getUser().getUsername() : null);
+		this.logger.tracef("requiredActionChallenge(%s)", context.getUser() != null ? context.getUser().getUsername() : null);
 	}
 	
 	@Override
 	public void processAction(RequiredActionContext context) {
-		this.logger.tracef("processAction({})", context.getUser() != null ? context.getUser().getUsername() : null);
+		this.logger.tracef("processAction(%s)", context.getUser() != null ? context.getUser().getUsername() : null);
 	}
 
 }
