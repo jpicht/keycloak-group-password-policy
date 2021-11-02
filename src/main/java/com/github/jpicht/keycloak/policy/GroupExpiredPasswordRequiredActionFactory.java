@@ -33,7 +33,7 @@ public class GroupExpiredPasswordRequiredActionFactory implements RequiredAction
 	
 	private final Logger logger = Logger.getLogger(GroupExpiredPasswordRequiredActionFactory.class);
 
-    private static final String ID = "groupRequiredAction";
+    private static final String ID = "groupExpirePassswordAction";
     private static final String DISPLAY = "Group-based Expired Password";
 
     @Override
