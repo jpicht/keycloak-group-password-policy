@@ -27,25 +27,31 @@ import org.keycloak.models.UserModel;
 /**
  * @author brian@inteligr8.com
  */
-public class GroupRequiredActionProvider extends RequiredActionMultiplexer {
+public class GroupExpiredPasswordRequiredActionProvider extends RequiredActionMultiplexer {
 	
 	private final Logger logger = Logger.getLogger(RequiredActionMultiplexer.class);
     private final GroupPasswordPolicyFinder finder = new GroupPasswordPolicyFinder();
     private final KeycloakSession session;
     
-    public GroupRequiredActionProvider(KeycloakSession session) {
+    public GroupExpiredPasswordRequiredActionProvider(KeycloakSession session) {
     	this.session = session;
 	}
 	
 	@Override
 	protected int findDaysToExpire(RealmModel realm, UserModel user) {
+		if (this.logger.isTraceEnabled())
+			this.logger.tracef("findDaysToExpire(%s, %s)", realm == null ? null : realm.getName(), user == null ? null : user.getId());
+		
 		List<String> policyStrs = this.finder.findPolicies(realm, user);
 		if (policyStrs == null || policyStrs.isEmpty())
 			return -1;
+		this.logger.debugf("found policies: [%s]", policyStrs.toString());
 		
 		Integer minDaysToExpire = null;
 		
 		for (String policyStr : policyStrs) {
+			this.logger.tracef("inspecting policy: %s", policyStr);
+			
 			PasswordPolicy policy = PasswordPolicy.parse(this.session, policyStr);
 			int daysToExpire = policy.getDaysToExpirePassword();
 			if (daysToExpire < 0)
@@ -62,7 +68,8 @@ public class GroupRequiredActionProvider extends RequiredActionMultiplexer {
 				minDaysToExpire = Math.min(minDaysToExpire, daysToExpire);
 			}
 		}
-		
+
+		this.logger.debugf("determined password expiration policy: %d days", minDaysToExpire);
 		return minDaysToExpire == null ? -1 : minDaysToExpire;
 	}
 	

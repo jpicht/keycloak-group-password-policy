@@ -73,6 +73,12 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
                 	<classifier>keycloak-v${keycloak.majorVersion}</classifier>
+                	<archive>
+                		<manifestEntries>
+                			<!-- This is required in order for the classloader of this JAR to access the specified library at runtime -->
+                			<Dependencies>org.keycloak.keycloak-services</Dependencies>
+                		</manifestEntries>
+                	</archive>
                 </configuration>
             </plugin>
         </plugins>

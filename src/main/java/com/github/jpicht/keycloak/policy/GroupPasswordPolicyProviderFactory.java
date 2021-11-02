@@ -17,6 +17,8 @@
 package com.github.jpicht.keycloak.policy;
 
 import com.google.auto.service.AutoService;
+
+import org.jboss.logging.Logger;
 import org.keycloak.Config;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.KeycloakSessionFactory;
@@ -25,6 +27,8 @@ import org.keycloak.policy.PasswordPolicyProviderFactory;
 
 @AutoService(PasswordPolicyProviderFactory.class)
 public class GroupPasswordPolicyProviderFactory implements PasswordPolicyProviderFactory {
+	
+	private final Logger logger = Logger.getLogger(GroupPasswordPolicyProviderFactory.class);
 
     static final String ID = "groupPasswordPolicy";
 
@@ -40,6 +44,7 @@ public class GroupPasswordPolicyProviderFactory implements PasswordPolicyProvide
 
     @Override
     public void init(Config.Scope config) {
+		this.logger.trace("init()");
     }
 
     @Override
@@ -68,5 +73,6 @@ public class GroupPasswordPolicyProviderFactory implements PasswordPolicyProvide
 
     @Override
     public void close() {
+		this.logger.trace("close()");
     }
 }

@@ -29,12 +29,12 @@ import com.google.auto.service.AutoService;
  * @author brian@inteligr8.com
  */
 @AutoService(RequiredActionFactory.class)
-public class GroupRequiredActionFactory implements RequiredActionFactory {
+public class GroupExpiredPasswordRequiredActionFactory implements RequiredActionFactory {
 	
-	private final Logger logger = Logger.getLogger(GroupRequiredActionFactory.class);
+	private final Logger logger = Logger.getLogger(GroupExpiredPasswordRequiredActionFactory.class);
 
     private static final String ID = "groupRequiredAction";
-    private static final String DISPLAY = "Group Action";
+    private static final String DISPLAY = "Group-based Expired Password";
 
     @Override
     public String getId() {
@@ -43,7 +43,8 @@ public class GroupRequiredActionFactory implements RequiredActionFactory {
 	
 	@Override
 	public RequiredActionProvider create(KeycloakSession session) {
-		return new GroupRequiredActionProvider(session);
+		this.logger.trace("create()");
+		return new GroupExpiredPasswordRequiredActionProvider(session);
 	}
 	
 	@Override

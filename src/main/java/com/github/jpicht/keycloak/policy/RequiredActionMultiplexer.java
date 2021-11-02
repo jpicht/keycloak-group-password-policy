@@ -19,6 +19,7 @@ package com.github.jpicht.keycloak.policy;
 import java.util.concurrent.TimeUnit;
 
 import org.jboss.logging.Logger;
+import org.keycloak.authentication.InitiatedActionSupport;
 import org.keycloak.authentication.RequiredActionContext;
 import org.keycloak.authentication.RequiredActionProvider;
 import org.keycloak.common.util.Time;
@@ -37,6 +38,11 @@ abstract class RequiredActionMultiplexer implements RequiredActionProvider {
 	private final Logger logger = Logger.getLogger(RequiredActionMultiplexer.class);
 
     protected abstract int findDaysToExpire(RealmModel realm, UserModel user);
+    
+    @Override
+    public InitiatedActionSupport initiatedActionSupport() {
+    	return InitiatedActionSupport.SUPPORTED;
+    }
 	
     /**
      * This is a re-implementation of what is found in the default
@@ -51,20 +57,26 @@ abstract class RequiredActionMultiplexer implements RequiredActionProvider {
 		
 		int daysToExpirePassword = this.findDaysToExpire(context.getRealm(), context.getUser());
 		if (daysToExpirePassword > -1) {
+			this.logger.debugf("Found password expiration: %d days", daysToExpirePassword);
+			
             PasswordCredentialProvider passwordProvider = (PasswordCredentialProvider)context.getSession()
             		.getProvider(CredentialProvider.class, PasswordCredentialProviderFactory.PROVIDER_ID);
             CredentialModel password = passwordProvider.getPassword(context.getRealm(), context.getUser());
             if (password != null) {
+    			this.logger.tracef("Found password credentials; created: %d ms", password.getCreatedDate());
+    			
                 if(password.getCreatedDate() == null) {
                     context.getUser().addRequiredAction(UserModel.RequiredAction.UPDATE_PASSWORD);
-                    logger.debug("User is required to update password");
+                    this.logger.debug("User is required to update password");
                 } else {
                     long timeElapsed = Time.currentTimeMillis() - password.getCreatedDate();
                     long timeToExpire = TimeUnit.DAYS.toMillis(daysToExpirePassword);
 
                     if(timeElapsed > timeToExpire) {
                         context.getUser().addRequiredAction(UserModel.RequiredAction.UPDATE_PASSWORD);
-                        logger.debug("User is required to update password");
+                        this.logger.debug("User is required to update password");
+                    } else {
+            			this.logger.tracef("Password credentials expire in %d ms", timeToExpire);
                     }
                 }
             }

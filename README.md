@@ -21,10 +21,16 @@ by navigating to the "Authentication" menu item in the vertical menu on the left
 realm's user interface.  You will then need to navigate to the "Password Policy" tab along the
 menu of tabs on the top of the page.
 
-This interface provides you the OOTB ability to specify password policies for all users.  This
-is still true with the plugin installed.  You will also have an additional option: **Group
+This interface provides you the OOTB ability to specify password policies for **all** users.
+This is still true with the plugin installed.  You will now have an additional option: **Group
 Policy**.  To use the plugin, you must add that password policy.  The "Policy Value" should be
 set to the ID we came up with earlier: `passwordPolicy`.
+
+If you intend to use group-specific password expiration (`forceExpiredPasswordChange`), you will
+need to perform an additional step in the configuration.  In the same "Authentication" section,
+navigate to the "Required Actions" tab along the menu of tabs on the top of the page.  Use the
+"Register" button to add the "Group-based Expired Password" action.  Move it up in the order to
+after the "Update Password" action.
 
 At this point, you will need to add an attribute (with key `passwordPolicy`) to each group you
 want to have additional password policies.  The format of that text is defined by Keycloak
@@ -50,7 +56,8 @@ The [policies provided with KeyCloak](https://www.keycloak.org/docs/6.0/server_a
 | `regexPattern(string)` | regular expression | ✓ |
 | `notUsername()` |  | ✓ |
 | `passwordBlacklist(string)` | file name | - |
-| `passwordHistory(int)` | number of last used passwords to disallow | - |
+| `passwordHistory(int)` | number of last used passwords to disallow | ✓ |
+| `forceExpiredPasswordChange(string)` | number of days to expire password after | ✓ |
 
 On the realm model the password policy attribute is also used for other purposes.
 There are some registered "policies", that do not actually implement a policy that
@@ -60,7 +67,6 @@ If these currently work is completely untested.
 
 | Identifier    | Description                          | Tested |
 | ------------- |:------------------------------------ | ------ |
-| `forceExpiredPasswordChange(string)` | number of days to expire password after | - |
 | `hashAlgorithm(string)` | hash algorithm to use when hashing the password | - |
 | `hashIterations(int)` | number of hash iterations | - |
 
