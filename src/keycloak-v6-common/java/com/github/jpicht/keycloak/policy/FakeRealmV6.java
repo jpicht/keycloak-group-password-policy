@@ -1,5 +1,6 @@
 /*
  * Copyright 2019 Julian Picht
+ * Copyright 2021 Brian Long (brian@inteligr8.com)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,8 +37,8 @@ import org.keycloak.models.RequiredActionProviderModel;
 import org.keycloak.models.RequiredCredentialModel;
 import org.keycloak.models.RoleModel;
 
-public class FakeRealm implements RealmModel {
-
+public abstract class FakeRealmV6 implements RealmModel {
+	
     @Override
     public String getId() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -508,15 +509,14 @@ public class FakeRealm implements RealmModel {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private PasswordPolicy passwordPolicy;
     @Override
     public PasswordPolicy getPasswordPolicy() {
-        return passwordPolicy;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void setPasswordPolicy(PasswordPolicy policy) {
-        passwordPolicy = policy;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

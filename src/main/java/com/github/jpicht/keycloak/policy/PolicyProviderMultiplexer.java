@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
+
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.PasswordPolicy;
 import org.keycloak.models.RealmModel;
@@ -38,7 +39,7 @@ abstract public class PolicyProviderMultiplexer implements PasswordPolicyProvide
         this.session = session;
     }
 
-    abstract protected LinkedList<String> findPolicies(RealmModel realm, UserModel user);
+    protected abstract List<String> findPolicies(RealmModel realm, UserModel user);
 
     @Override
     public PolicyError validate(String username, String password) {
@@ -65,7 +66,6 @@ abstract public class PolicyProviderMultiplexer implements PasswordPolicyProvide
 
     // use org.keycloak.models.PasswordPolicy to parse the policy string
     protected PasswordPolicy parsePolicy(String policy) {
-        LinkedList<PasswordPolicyProvider> list = new LinkedList<>();
         PasswordPolicy parsedPolicy = PasswordPolicy.parse(session, policy);
         return parsedPolicy;
     }
