@@ -18,11 +18,13 @@ package com.github.jpicht.keycloak.policy;
 
 import org.keycloak.models.ParConfig;
 
-public abstract class FakeRealmV15 extends FakeRealmV14 {
+import java.util.Map;
 
-	@Override
-	public ParConfig getParPolicy() {
+public class FakeRealmV18 extends FakeRealmV15 {
+
+
+    @Override
+    public void createOrUpdateRealmLocalizationTexts(String locale, Map<String, String> localizationTexts) {
         throw new UnsupportedOperationException("Not supported yet.");
-	}
-    
+    }
 }

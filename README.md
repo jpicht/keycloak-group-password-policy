@@ -1,5 +1,5 @@
 # keycloak-group-password-policy
-This keycloak extension (currenty developed and tested against version 6.0.1) aims to
+This keycloak extension (currenty developed and tested against versions 6, 8-15, 18) aims to
 create the possibility to assign additional password rules to user groups, extending the
 rules attached to the realm, _not_ replacing them.
 
@@ -8,7 +8,8 @@ It is available as a new type of password policy on the realm's password policy 
 
 ## Installation
 The extension can be installed just like any keycloak extension. Either copy it to the
-`keycloak/standalone/deployments` folder, or load it via the jboss command line tool.
+`keycloak/standalone/deployments` folder for JBoss deployments or in `keycloak/deployments` 
+for quarkus distributions, or load it via the jboss command line tool.
 
 ## Usage
 There are multiple steps you will want to take to use this plugin.  First, you need to determine

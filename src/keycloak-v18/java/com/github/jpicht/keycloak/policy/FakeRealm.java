@@ -1,4 +1,5 @@
 /*
+ * Copyright 2019 Julian Picht
  * Copyright 2021 Brian Long (brian@inteligr8.com)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,13 +17,20 @@
 
 package com.github.jpicht.keycloak.policy;
 
-import org.keycloak.models.ParConfig;
+import org.keycloak.models.PasswordPolicy;
 
-public abstract class FakeRealmV15 extends FakeRealmV14 {
+public class FakeRealm extends FakeRealmV18 {
 
-	@Override
-	public ParConfig getParPolicy() {
-        throw new UnsupportedOperationException("Not supported yet.");
-	}
+    private PasswordPolicy passwordPolicy;
+    
+    @Override
+    public PasswordPolicy getPasswordPolicy() {
+        return passwordPolicy;
+    }
+
+    @Override
+    public void setPasswordPolicy(PasswordPolicy policy) {
+        passwordPolicy = policy;
+    }
     
 }
