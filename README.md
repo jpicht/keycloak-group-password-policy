@@ -45,7 +45,7 @@ For example:
 
 [`length(8) and digits(2) and lowerCase(2) and upperCase(2) and specialChars(2) and notUsername()`](https://github.com/keycloak/keycloak/blob/6.0.1/testsuite/integration-arquillian/tests/base/src/test/java/org/keycloak/testsuite/policy/PasswordPolicyTest.java#L243)
 
-The [policies provided with KeyCloak](https://www.keycloak.org/docs/6.0/server_admin/#password-policy-types) are:
+The [policies provided with KeyCloak](https://www.keycloak.org/docs/latest/server_admin/#authentication-operations) are:
 
 | Identifier    | Parameter description                | Tested |
 | ------------- |:------------------------------------ | ------ |
