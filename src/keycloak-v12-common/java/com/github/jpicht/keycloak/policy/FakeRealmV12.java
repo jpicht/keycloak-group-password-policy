@@ -154,7 +154,7 @@ public abstract class FakeRealmV12 extends FakeRealmV11 {
         throw new UnsupportedOperationException("Not supported yet.");
 	}
 
-	@Override
+
 	public void patchRealmLocalizationTexts(String locale, Map<String, String> localizationTexts) {
         throw new UnsupportedOperationException("Not supported yet.");
 	}
