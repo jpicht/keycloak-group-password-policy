@@ -79,3 +79,34 @@ As all policies are configured via the RealmModel, a custom implementation of th
 interface (`FakeRealm`) is used to inject the configuration into the classes.
 
 For details please have a look at the source code.
+
+### Building
+
+The build must match your version of Keycloak.  There is no good backward compatibilty due to
+changing signatures.  So select a version range from the table below.  These ranges are copied
+from the profiles in the `pom.xml`.
+
+| Minimum Version | Maximum Version | Profile          |
+|:---------------:|:---------------:| ---------------- |
+| 6.x             | 6.x             | keycloak-v6      |
+| 7.x             | 7.x             | keycloak-v7      |
+| 8.x             | 11.x            | keycloak-v8-v11  |
+| 12.x            | 12.x            | keycloak-v12     |
+| 13.x            | 14.x            | keycloak-v13-v14 |
+| 15.x            | 24.x            | keycloak-v15-v24 |
+| 25.x            | 26.x            | keycloak-v25-v26 |
+
+Here is an example build:
+
+```base
+mvn -Pkeycloak-v15-v24 clean package
+```
+
+This will create a file in the following format: `keycloak-group-password-policy-{version}-keycloak-v15-v24.jar`.
+
+This file will work in Keycloak versions v15 through v24, inclusive.  It will fail on earlier
+and later versions.
+
+If you want to try to build this against a version that did not yet exist at the time of this
+writing, it *may* work.  If it does, please update the project by changing all the related
+version numbers and folder names.
