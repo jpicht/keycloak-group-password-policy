@@ -97,8 +97,7 @@ from the profiles in the `pom.xml`.
 | 25.x            | 26.x            | keycloak-v25-v26 |
 
 Here is an example build:
-
-```base
+```bash
 mvn -Pkeycloak-v15-v24 clean package
 ```
 
