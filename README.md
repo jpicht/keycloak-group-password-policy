@@ -82,7 +82,7 @@ For details please have a look at the source code.
 
 ### Building
 
-The build must match your version of Keycloak.  There is no good backward compatibilty due to
+The build must match your version of Keycloak.  There is no good backward compatibility due to
 changing signatures.  So select a version range from the table below.  These ranges are copied
 from the profiles in the `pom.xml`.
 
