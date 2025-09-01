@@ -1,5 +1,5 @@
 # keycloak-group-password-policy
-This keycloak extension (currenty developed and tested against versions 6, 8-15, 18) aims to
+This keycloak extension (currenty developed and tested against versions 6, 8-15, 18, 26) aims to
 create the possibility to assign additional password rules to user groups, extending the
 rules attached to the realm, _not_ replacing them.
 
